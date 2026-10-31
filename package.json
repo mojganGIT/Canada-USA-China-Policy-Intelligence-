@@ -1,0 +1,9 @@
+{
+  "name": "canada-us-china-policy-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "python3 -m http.server 8000 --directory app",
+    "check": "node --check app/app.js && node --check app/data.js && node --check api/src/functions/ask.js"
+  }
+}
