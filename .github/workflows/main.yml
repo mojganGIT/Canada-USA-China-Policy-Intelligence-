@@ -1,0 +1,53 @@
+{
+  "name": "canada-us-china-policy-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "serve": "python3 -m http.server 8000 --directory app",
+    "check": "node --check app/app.js && node --check app/data.js && node --check api/src/functions/ask.js"
+  }
+}
+
+# Canada · U.S. · China Policy Intelligence Dashboard
+
+Deployment-ready package for Azure Static Web Apps.
+
+## Included
+
+- Static browser dashboard in `app/`
+- Phrase, word, acronym, year and policy-title search
+- Ask-Agent interface with local verified-index fallback
+- Azure Functions API in `api/`
+- Structured relationship × policy-field Product Map
+- External primary-source links that open in a normal browser
+- SPA routing and security headers in `app/staticwebapp.config.json`
+- GitHub Actions deployment workflow
+
+## Deploy with GitHub + Azure portal
+
+1. Extract the ZIP and push all files to the `main` branch of a GitHub repository.
+2. In Azure, create a **Static Web App** and connect the repository.
+3. Use these build settings:
+   - App location: `app`
+   - API location: `api`
+   - Output location: leave blank
+4. If Azure creates its own workflow, keep the Azure-generated deployment token and use the same locations above.
+5. If you use the included workflow, add the deployment token as the repository secret `AZURE_STATIC_WEB_APPS_API_TOKEN`.
+6. After the workflow succeeds, open the Azure-generated site URL.
+
+## Local preview
+
+The static dashboard works without an API:
+
+```bash
+cd app
+python3 -m http.server 8000
+```
+
+Then open `http://localhost:8000`.
+
+The Ask/Search box automatically falls back to the local policy index when `/api/ask` is unavailable.
+
+## Full agent upgrade
+
+The included API is an extractive phrase/keyword retrieval API. To add generative deep-search responses, extend `api/src/functions/ask.js` to call your approved search index and model endpoint. Keep secrets in Azure application settings, not in source control.
